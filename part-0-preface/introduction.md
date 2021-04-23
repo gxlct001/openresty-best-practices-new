@@ -93,12 +93,12 @@ ngx_openresty 从一开始就是公司实际的业务需求的产物。在过去
 
 **关注订阅:**
 
-[微博](https://www.weibo.com/agentzh)
-公众号：
+- [微博](https://www.weibo.com/agentzh)
+- 公众号：
   - [OpenResty 社区](openrestysoft)
   - [OpenResty 软件](openrestysoft)
-[Bilibili](https://space.bilibili.com/457424101)
-[LinkedIn](https://www.linkedin.com/company/openresty)
-[YouTube](https://www.youtube.com/channel/UCXVmwF-UCScv2ftsGoMqxhw)
-[Vimeo](https://vimeo.com/user136961888)
-[RSS](https://blog.openresty.com.cn/cn/atom.xml)
+- [Bilibili](https://space.bilibili.com/457424101)
+- [LinkedIn](https://www.linkedin.com/company/openresty)
+- [YouTube](https://www.youtube.com/channel/UCXVmwF-UCScv2ftsGoMqxhw)
+- [Vimeo](https://vimeo.com/user136961888)
+- [RSS](https://blog.openresty.com.cn/cn/atom.xml)

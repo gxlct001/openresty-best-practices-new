@@ -1,29 +1,60 @@
 # OpenResty 简介
 
-OpenResty（也称为 ngx_openresty）是一个全功能的 Web 应用服务器。它打包了标准的 Nginx 核心，很多的常用的第三方模块，以及它们的大多数依赖项。
+## 【软件简介】
+
+[OpenResty](https://openresty.org/)（也称为 ngx_openresty）是一个全功能的 Web 应用服务器。它打包了标准的 Nginx 核心，很多的常用的第三方模块，以及它们的大多数依赖项。
 
 通过揉和众多设计良好的 Nginx 模块，OpenResty 有效地把 Nginx 服务器转变为一个强大的 Web 应用服务器，基于它开发人员可以使用 Lua 编程语言对 Nginx 核心以及现有的各种 Nginx C 模块进行脚本编程，构建出可以处理一万以上并发请求的极端高性能的 Web 应用。
 
-OpenResty 致力于将你的服务器端应用完全运行于 Nginx 服务器中，充分利用 Nginx 的事件模型来进行非阻塞 I/O 通信。不仅仅是和 HTTP 客户端间的网络通信是非阻塞的，与MySQL、PostgreSQL、Memcached 以及 Redis 等众多远方后端之间的网络通信也是非阻塞的。
+OpenResty 致力于将你的服务器端应用完全运行于 Nginx 服务器中，充分利用 Nginx 的事件模型来进行非阻塞 I/O 通信。不仅仅是和 HTTP 客户端间的网络通信是非阻塞的，与 MySQL、PostgreSQL、Memcached 以及 Redis 等众多远方后端之间的网络通信也是非阻塞的。
 
 因为 OpenResty 软件包的维护者也是其中打包的许多 Nginx 模块的作者，所以 OpenResty 可以确保所包含的所有组件可以可靠地协同工作。
 
-OpenResty 最早是雅虎中国的一个公司项目，起步于 2007 年 10 月。当时兴起了 OpenAPI 的热潮，用于满足各种 Web Service 的需求，就诞生了 OpenResty。在公司领导的支持下，最早的 OpenResty 实现从一开始就开源了。最初的定位是服务于公司外的开发者，像其他的 OpenAPI 那样，但后来越来越多地是为雅虎中国的搜索产品提供内部服务。这是第一代的 OpenResty，当时的想法是，提供一套抽象的 web service，能够让用户利用这些 web service 构造出新的符合他们具体业务需求的 Web Service 出来，所以有些“meta web service”的意味，包括数据模型、查询、安全策略都可以通过这种 meta web service 来表达和配置。同时这种 web service 也有意保持 REST 风格。与这种概念相对应的是纯 AJAX 的 web 应用，即 web 应用几乎都使用客户端 JavaScript 来编写，然后完全由 web service 让 web 应用“活”起来。用户把 .html, .js, .css, .jpg 等静态文件下载到 web browser 中，然后 js 开始运行，跨域请求雅虎提供的经过站长定制过的 web service，然后应用就可以运行起来。不过随着后来的发展，公司外的用户毕竟还是少数，于是应用的重点是为公司内部的其他团队提供 web service，比如雅虎中国的全能搜索产品，及其外围的一些产品。从那以后，开发的重点便放在了性能优化上面。章亦春在加入淘宝数据部门的量子团队之后，决定对 OpenResty 进行重新设计和彻底重写，并把应用重点放在支持像量子统计这样的 web 产品上面，所以量子统计 3.0 开始也几乎完全是 web service 驱动的纯 AJAX 应用。
+## 【访谈实录】(节选)
 
-这是第二代的 OpenResty，一般称之为 ngx_openresty，以便和第一代基于 Perl 和 Haskell 实现的 OpenResty 加以区别。章亦春和他的同事王晓哲一起设计了第二代的 OpenResty。在王晓哲的提议下，选择基于 nginx 和 lua 进行开发。
+### 1. 为什么会想到要做 OpenResty 这个项目？
 
-为什么要取 OpenResty 这个名字呢？OpenResty 最早是顺应 OpenAPI 的潮流做的，所以 Open 取自“开放”之意，而Resty便是 REST 风格的意思。虽然后来也可以基于 ngx_openresty 实现任何形式的 web service 或者传统的 web 应用。
+OpenResty 最早是雅虎中国的一个公司项目，起步于 2007 年 10 月。当时兴起了 OpenAPI 的热潮，用于满足各种 Web Service 的需求，就诞生了 OpenResty。在公司领导的支持下，最早的 OpenResty 实现从一开始就开源了。最初的定位是服务于公司外的开发者，像其他的 OpenAPI 那样，但后来越来越多地是为雅虎中国的搜索产品提供内部服务。
 
-也就是说 Nginx 不再是一个简单的静态网页服务器，也不再是一个简单的反向代理了。第二代的 openresty 致力于通过一系列 nginx 模块，把nginx扩展为全功能的 web 应用服务器。
+这是第一代的 OpenResty，当时的想法是，提供一套抽象的 web service，能够让用户利用这些 web service 构造出新的符合他们具体业务需求的 Web Service 出来，所以有些“meta web service”的意味，包括数据模型、查询、安全策略都可以通过这种 meta web service 来表达和配置。同时这种 web service 也有意保持 REST 风格。
 
-ngx_openresty 是用户驱动的项目，后来也有不少国内用户的参与，从 openresty.org 的点击量分布上看，国内和国外的点击量基本持平。
+与这种概念相对应的是纯 AJAX 的 web 应用，即 web 应用几乎都使用客户端 JavaScript 来编写，然后完全由 web service 让 web 应用“活”起来。用户把 .html, .js, .css, .jpg 等静态文件下载到 web browser 中，然后 js 开始运行，跨域请求雅虎提供的经过站长定制过的 web service，然后应用就可以运行起来。
+
+不过随着后来的发展，公司外的用户毕竟还是少数，于是应用的重点是为公司内部的其他团队提供 web service，比如雅虎中国的全能搜索产品，及其外围的一些产品。从那以后，开发的重点便放在了性能优化上面。[章亦春](https://github.com/agentzh) 在加入淘宝数据部门的量子团队之后，决定对 OpenResty 进行重新设计和彻底重写，并把应用重点放在支持像量子统计这样的 web 产品上面，所以量子统计 3.0 开始也几乎完全是 web service 驱动的纯 AJAX 应用。
+
+### 2. 这是第二代的 OpenResty 吗？
+是的，这是第二代的 OpenResty，一般称之为 ngx_openresty，以便和第一代基于 Perl 和 Haskell 实现的 OpenResty 加以区别。章亦春和他的同事 [王晓哲](https://github.com/chaoslawful) 一起设计了第二代的 OpenResty。在王晓哲的提议下，选择基于 nginx 和 lua 进行开发。
+
+### 3. 为什么要取 OpenResty 这个名字呢？
+
+OpenResty 最早是顺应 OpenAPI 的潮流做的，所以 Open 取自“开放”之意，而 Resty 便是 REST 风格的意思。虽然后来也可以基于 ngx_openresty 实现任何形式的 web service 或者传统的 web 应用。
+
+### 4. 也就是说 Nginx 不再是一个简单的静态网页服务器了？
+
+是的，也不再是一个简单的反向代理了。第二代的 openresty 致力于通过一系列 nginx 模块，把nginx 扩展为全功能的 web 应用服务器。
+
+### 5. 也就是说你这个项目，一开始就有很多国外的用户参与？
+
+是的，ngx_openresty 是用户驱动的项目，后来也有不少国内用户的参与，从 [openresty.org](https://openresty.org) 的点击量分布上看，国内和国外的点击量基本持平。
+
+### 6. 目前开发和维护OpenResty的人员有哪些？
+
+目前主要是我在领导，同时王晓哲仍在做一些基础而核心的开发工作，但只是业余时间。我们有许多比较活跃的贡献者，比如波兰的 Nginx 黑客 PiotrSikora，CloudFlare 的系统工程师 MatthieuTourne，Turner BroadcastingSystem 的架构师 Brian Akins，一淘量子团队的林青和支家乐，去哪儿网的珣新和郭颖，新浪网的 drdrxp（网名），而淘宝核心系统部的静龙（花名）、淘李子（花名）、姚伟斌、Simon Liu 等多位工程师今年以来也很活跃。StickyAdsTv 公司的 CTO，AntoineBonavita，也为我们的测试工具链做了很多贡献。此外，还有不少贡献者我在这里并没有提及，向他们致歉。
+
+### 7. 目前和 OpenResty 类似的项目有哪些？相比之下 OpenResty 有何特点和优势？
 
 ngx_openresty 目前有两大应用目标：
 
-1. 通用目的的 web 应用服务器。在这个目标下，现有的 web 应用技术都可以算是和 OpenResty 或多或少有些类似，比如 Nodejs, PHP 等等。ngx_openresty 的性能（包括内存使用和 CPU 效率）算是最大的卖点之一。
-2. Nginx 的脚本扩展编程，用于构建灵活的 Web 应用网关和 Web 应用防火墙。有些类似的是 NetScaler。其优势在于 Lua 编程带来的巨大灵活性。
+- 1，通用目的的 web 应用服务器。
+  在这个目标下，现有的 web 应用技术都可以算是和 OpenResty 或多或少有些类似，比如 Nodejs, PHP 等等。ngx_openresty 的性能（包括内存使用和 CPU 效率）算是最大的卖点之一。
+- 2，Nginx 的脚本扩展编程，用于构建灵活的 Web 应用网关和 Web 应用防火墙。
+  有些类似的是 NetScaler。其优势在于 Lua 编程带来的巨大灵活性。
+
+### 8. OpenResty 将来的发展方向？是不是还是由公司的需求推动？
 
 ngx_openresty 从一开始就是公司实际的业务需求的产物。在过去的几年中的大部分开发工作也是由国内外许多公司和个人的实际业务需求驱动的。这种模型在实践中工作得非常好，可以确保我们做的就是大家最迫切需要的。在此过程中，慢慢形成了 ngx_openresty 的两大应用方向，也就是前面提到的那两大方向。是我们的用户帮助我们确认了这两个方向，事实上，这并不等同于第一代 OpenResty 的方向，而是变得更加底层和更加通用了。
+
+### 9. 你也应该知道国内基本上没有太流行的开源项目，而国外却有很多。能否谈谈你对开源的理解以及对国内外差距的看法？
 
 开源精神的核心是分享而非追求流行。毕竟开源界不是娱乐圈，也不是时尚圈。如果我们的开源项目有越来越多的人开始使用，只是一个“happy accident”，我们自然会很高兴，但这并不是我们真正追求的。
 
@@ -33,4 +64,41 @@ ngx_openresty 从一开始就是公司实际的业务需求的产物。在过去
 
 不过，国内也是有一些程序员拥有国外优秀黑客的素质的，而且他们通过网络和全球的黑客紧密联系在一起，所以我们完全可以期待他们未来有振奋人心的产出。在互联网时代的今天，或许按国界的划分来讨论这样的问题会变得越来越不合时宜。
 
+### 10. 你有没有什么建议给编程的初学者？以及对于新手创建自己的开源项目，你是什么看法？
+
+对于编程的初学者，我最主要的建议就是打开门去看世界，多通过 IRC、邮件列表等途径和世界各国（自然也包括国内）的黑客联结到一起。和他们多沟通多交流，尽可能地多和他们一起通过网络远程协作，比如参与一些有趣的开源项目。
+
+为了做到这一点，也需要把英语学好。语言是交流和学习的前提。在此过程中，把自己的功利心放下，以真诚单纯的心为开源世界乃至整个计算世界多贡献。
+
+对于创建开源项目的新手，我建议一定要及时响应用户以及其他开发者的反馈，千万不要止步于开放源代码。同时多参与和关注其他的开源项目，观察那些比较成功的开源项目具体是如何运作的。
+
 摘自：[OpenResty 作者章亦春访谈实录](http://www.oschina.net/question/28_60461)
+
+## 【站点资源】
+
+**项目地址：**
+
+- GitHub: [OpenResty](https://github.com/openresty/)
+- Gitee: [OpenResty](https://gitee.com/mirrors/openresty)
+
+**社区网站：**
+
+- 中文： [OpenResty.org](https://openresty.org/cn/)
+- 英文： [OpenResty.org](https://openresty.org/en/)
+
+**商业支持：**
+
+- 中文： [OpenResty.com](https://openresty.com/cn/)
+- 英文： [OpenResty.com](https://openresty.com/en/)
+
+**关注订阅:**
+
+[微博](https://www.weibo.com/agentzh)
+公众号：
+  - [OpenResty 社区](openrestysoft)
+  - [OpenResty 软件](openrestysoft)
+[Bilibili](https://space.bilibili.com/457424101)
+[LinkedIn](https://www.linkedin.com/company/openresty)
+[YouTube](https://www.youtube.com/channel/UCXVmwF-UCScv2ftsGoMqxhw)
+[Vimeo](https://vimeo.com/user136961888)
+[RSS](https://blog.openresty.com.cn/cn/atom.xml)

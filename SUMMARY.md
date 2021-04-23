@@ -2,8 +2,8 @@
 
 - [序](README.md)
 - [入门篇](README.md)
-  - [Socket 编程发展](part-0-preface/socket_evolution.md)
   - [OpenResty 简介](part-0-preface/introduction.md)
+  - [Socket 编程发展](part-0-preface/socket_evolution.md)
 - 第一部分：Lua 和 LuaJIT
   - [一，Lua 入门](lua_base/main.md)
     - [Lua 简介](lua_base/brief.md)
@@ -218,6 +218,10 @@
   - 五，站点收集
     - [lua.org](https://www.lua.org/)
     - [luajit.org](https://luajit.org/)
+    - [lua-china.com](https://lua-china.com/)
+    - [云风翻译的 Lua 5.3 手册](https://cloudwu.github.io/lua53doc/)
+    - [Getting Started With Lua](http://gamedevgeek.com/tutorials/getting-started-with-lua/)
+    - [菜鸟 Lua 教程](https://www.runoob.com/lua/lua-tutorial.html)
     - [lua.sqlite.org](http://lua.sqlite.org/index.cgi/index)
     - [lua-users.org](http://lua-users.org/wiki/LuaUses)
     - [keplerproject.org](http://www.keplerproject.org/en/Lua/)

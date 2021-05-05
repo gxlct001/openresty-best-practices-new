@@ -54,7 +54,7 @@
 
 启动 Nginx 之后，浏览器中输入 http://localhost 可以验证是否安装启动成功。
 
-![](../images/nginx_hello.jpg)
+![](../../images/nginx_hello.jpg)
 
 #### 2、 Nginx 配置示例:
 
@@ -102,7 +102,7 @@ server{}            # 块定义了虚拟主机
 
 #### 3、 真实用例
 
-![](../images/nginx_conf.jpg)
+![](../../images/nginx_conf.jpg)
 
 从配置可以看出：
 

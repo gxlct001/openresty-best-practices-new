@@ -2,7 +2,7 @@
 
 if-else 是我们熟知的一种控制结构。Lua 跟其他语言一样，提供了 if-else 的控制结构。因为是大家熟悉的语法，本节只简单介绍一下它的使用方法。
 
-#### 单个 if 分支 型
+## 一，单个 if 分支 型
 
 ```lua
 x = 10
@@ -13,7 +13,7 @@ end
 
 > 运行输出：x is a positive number
 
-#### 两个分支 if-else 型
+## 二，两个分支 if-else 型
 
 ```lua
 x = 10
@@ -26,7 +26,7 @@ end
 
 > 运行输出：x is a positive number
 
-#### 多个分支 if-elseif-else 型
+## 三，多个分支 if-elseif-else 型
 
 ```lua
 score = 90

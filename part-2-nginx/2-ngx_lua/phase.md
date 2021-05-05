@@ -2,7 +2,7 @@
 
 OpenResty 处理一个请求，它的处理流程请参考下图（从 Request start 开始）：
 
-![openresty_phases](../images/openresty_phases.png)
+![openresty_phases](../../images/openresty_phases.png)
 
 我们在这里做个测试，示例代码如下：
 ```nginx

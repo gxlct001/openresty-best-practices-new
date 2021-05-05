@@ -14,7 +14,7 @@
 
 OpenResty 中的 cosocket 不仅需要协程特性支撑，它还需 Nginx 非常最重要的“事件循环回调机制”，两部分结合在一起最终达到了 cosocket 效果，外加 Nginx 自身对各种资源的“小气”，LuaJIT 的执行效率，最终加分不少。在 Lua 世界中调用任何一个有关 cosocket 网络函数，其内部关键调用如图所示：
 
-![](../images/cosocket_internal.png)
+![](../../images/cosocket_internal.png)
 
 从该图中我们可以看到，用户的 Lua 脚本每触发一个网络操作，都会有协程的 yield 以及 resume，因为请求的 Lua 脚本实际上都 **运行在独享协程之上**。可以在任何需要的时候暂停自己（yield），也可以在任何需要的时候被唤醒（resume）。
 

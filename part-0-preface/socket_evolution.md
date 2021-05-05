@@ -48,7 +48,8 @@ Socket 起源于 Unix，而 Unix/Linux 基本哲学之一就是 **“一切皆�
 
 ## 二，Socket 的发展
 
-### Linux 上 IO 复用的发展
+### 1，Linux 上 IO 复用的发展
+
 由上面内容可知套接字（Socket）是通信的基石，是支持 TCP/IP 协议的网络通信的基本操作单元。随着日益增大的通信需求，复用技术（multiplexing）应运而生。复用并不是新技术而是一种设计思想，从本质上来说，复用就是为了解决有限资源和过多使用者的不平衡问题，它的理论基础是 **资源的可释放性**。
 
 Linux 系统在服务器市场上有着决定性的占比。在 Linux 平台上如何应对大量连接请求的场景呢？这就需要了解 Unix/Linux 的网络 I/O 模型。
@@ -57,12 +58,15 @@ Linux 系统在服务器市场上有着决定性的占比。在 Linux 平台上�
 
 现在比较出名的 Nginx 就是使用 `epoll` 来实现 I/O 复用支持高并发的，目前在高并发的场景下，Nginx 越来越受到欢迎。
 
-### 高性能 Nginx 服务器端的占比
-据 w3techs 在 2015 年 8 月 10 日的统计数据表明，在全球 Top 1000 的网站中，有 43.7% 的网站在使用 Nginx，这使得 Nginx 超越了 Apache，成为了高流量网站最信任的 Web 服务器足足有两年时间。已经确定在使用 Nginx 的站点有：Wikipedia，WordPress，Reddit，Tumblr，Pinterest，Dropbox，Slideshare，Stackexchange 等，可以持续罗列好几个小时，他们太多了。
+### 2，高性能的 Nginx 在服务器端的占比
+
+据 w3techs 在 2015 年 8 月 10 日的统计数据表明，在全球 Top 1000 的网站中，有 43.7% 的网站在使用 Nginx，这使得 Nginx 超越了 Apache，成为了高流量网站最信任的 Web 服务器足足有两年时间。已经确定在使用 Nginx 的站点有：Wikipedia、WordPress、Reddit、Tumblr、Pinterest、Dropbox、Slideshare、Stackexchange 等等，可以持续罗列好几个小时，实在是太多了。
 
 下图是统计数据：
 
 ![Nginx 服务端占比统计](../images/nginx.png)
+
+## 三，IO 复用模型的简介与对比
 
 ### 1，select 模型（开拓者）
 
@@ -174,9 +178,7 @@ int epoll_wait(int epfd, struct epoll_event * events, int maxevents, int timeout
 
   - `epoll` 是通过内核与用户空间 `mmap` 同一块内存，避免了无谓的内存拷贝。
 
-
-
-## 参考网址：
+## 参考网址
 
 - [套接字](https://baike.baidu.com/item/套接字/9637606)
 - [Socket通信原理](https://www.cnblogs.com/wangcq/p/3520400.html)

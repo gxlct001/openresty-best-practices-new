@@ -13,7 +13,7 @@
 
 如下图所示：
 
-![proxy](../images/proxy.png)
+![proxy](../../images/proxy.png)
 
 ### 反向代理典型应用场景
 
@@ -67,7 +67,7 @@ http {
 
 成功启动 Nginx 后，我们打开浏览器，验证下反向代理的效果。在浏览器地址栏中输入 `localhost/README.md`，返回的结果是我们 GitHub 源代码的 README 页面。如下图：
 
-![proxy_example](../images/proxy_example.png)
+![proxy_example](../../images/proxy_example.png)
 
 我们只需要配置一下 `nginx.conf` 文件，不用写任何 web 页面，就可以偷偷地从别的服务器上读取一个页面返回给用户。
 
@@ -96,7 +96,7 @@ http {
 既然有反向代理，自然也有 **正向代理**（Forward Proxy）。简单来说，正向代理就像一个跳板，例如一个用户访问不了某网站（例如 `www.google.com`），但是他能访问一个代理服务器，这个代理服务器能访问 `www.google.com`，于是用户可以先连上代理服务器，告诉它需要访问的内容，代理服务器去取回来返回给用户。例如一些常见的翻墙工具、游戏代理就是利用正向代理的原理工作的，我们需要在这些正向代理工具上配置服务器的 IP 地址等信息。
 如下图所示 (图片来自网络)：
 
-![forward proxy](../images/forward-proxy.png)  vs   ![reverse proxy](../images/reverse-proxy.png)
+![forward proxy](../../images/forward-proxy.png)  vs   ![reverse proxy](../../images/reverse-proxy.png)
 
 图解：
 

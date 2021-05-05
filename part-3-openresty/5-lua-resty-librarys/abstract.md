@@ -1,0 +1,15 @@
+# 五，lua-resty-* 库
+
+- [lua-resty-http](https://github.com/openresty/lua-resty-memcached)
+- [lua-resty-mqtt](https://github.com/ahlfors/lua-resty-mqtt)
+- [lua-resty-string](https://github.com/openresty/lua-resty-string)
+- [lua-resty-healthcheck](https://github.com/Kong/lua-resty-healthcheck/)
+- [lua-cjson](https://github.com/openresty/lua-cjson)
+- [lua-resty-dns](part-3-openresty/lua-resty-librarys/dns/main.md)
+- [lua-resty-lock](https://github.com/openresty/lua-resty-lock)
+- [lua-resty-redis](https://github.com/openresty/lua-resty-redis/)
+- [lua-resty-redis-connector](https://github.com/pintsized/lua-resty-redis-connector)
+- [lua-resty-etcd](https://github.com/api7/lua-resty-etcd)
+- [lua-resty-mysql](https://github.com/openresty/lua-resty-mysql)
+- [lua-resty-kafka](https://github.com/doujiang24/lua-resty-kafka)
+- [lua-resty-beanstalkd](https://github.com/bakins/lua-resty-beanstalkd)

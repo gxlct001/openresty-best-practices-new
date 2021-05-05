@@ -1,4 +1,4 @@
-# 日志
+# Nginx 日志
 
 Nginx 日志主要有两种：access_log (访问日志) 和 error_log (错误日志)。
 

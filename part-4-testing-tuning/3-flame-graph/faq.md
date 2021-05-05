@@ -13,6 +13,6 @@
 
 若系统/容器支持 ebpf 可以使用 bcc 工具集，使用如下命令绘制 off-cpu 火焰图
 
-```
+```bash
 /usr/share/bcc/tools/offcputime -df -p `pgrep -nx mysqld` 30 > out.stacks
 ```

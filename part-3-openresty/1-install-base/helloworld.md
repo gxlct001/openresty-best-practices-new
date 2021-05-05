@@ -70,4 +70,4 @@ HelloWorld
 
 在浏览器中完成同样的访问：
 
-![](../images/first_helloworld.png)
+![](../../images/first_helloworld.png)

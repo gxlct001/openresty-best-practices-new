@@ -6,34 +6,35 @@
 我从最初的记事本编辑，vi，到后来的 UE 自定义语法高亮和函数列表，以及 scite 等，寻找和尝试过能找到的绝大部分的 Lua 编辑器。
 我想在编辑器选择上面 (Linux 下的不熟= =) 应该比较有发言权。 这里我主要讲我的环境是如何配置的。
 
-## VS Code
+## 一，VS Code
 
 VSCode(Visual Studio Code) 是一个号称“重新定义代码编辑”的可到处运行（跨平台）的开源软件。它同时支持 Windows、Linux、Mac 等平台，通过丰富的插件扩展器功能，当然最重要的是，它完全免费！
 
-### 为什么选择 VS Code？
+### 1，为什么选择 VS Code？
 
 免费免费的里面，虽然有很多好用的，但是各有缺点：
 
-- Win 的 Notepad++：性能强，功能多，但颜值不高，也不支持其他平台 
-- Sublime：颜值高，但是功能总体上算一般 
-- Atom：功能一般，有一定用户量 
+- Win 的 Notepad++：性能强，功能多，但颜值不高，也不支持其他平台
+- Sublime：颜值高，但是功能总体上算一般
+- Atom：功能一般，有一定用户量
 - Eclipse 家族：功能强，支持插件扩展，但太臃肿，性能差，其次 Lua 和 Openresty 插件比较弱
 
 收费里面，有很多很强的，比如 JetBrains
 
 因此，VS Code 诞生了：不仅好用，还免费！VS Code 该有的都有了包括很多不支持的或者功能不够完善的，比如：
+
 - 列模式包括很多（如 Sublime，Atom 等）
 - 文件编码（检测和转换）、全局和当前文件的搜索、搜索支持正则功能
-- 支持插件扩展。理论上：功能可无限增加，随便列举几个常用的好用的：`Markdown Preview Enhancedindent-rainbowBracket Pair ColorizerPaste Image` 
+- 支持插件扩展。理论上：功能可无限增加，随便列举几个常用的好用的：`Markdown Preview Enhancedindent-rainbowBracket Pair ColorizerPaste Image`
 - 性能好。使用 Notepad++打开几百 M 或者更大的大文件的人，知道我在说什么；VSCode 打开大文件，秒开，即便开多个窗口，依旧非常流畅
 
-### 下载 VS Code 并配置
+### 2，下载 VS Code 并配置
 
 在官网下载即可：[下载链接](https://code.visualstudio.com/)
 
 傻瓜式一键安装，无需任何配置
 
-### 推荐插件
+### 3，推荐插件
 
 Openresty 开发者推荐 EmmyLua 插件
 
@@ -43,7 +44,7 @@ Lua 开发者（通常是游戏开发者）推荐 `Lua Helper` 插件
 
 ![](https://cdn.jsdelivr.net/gh/Miss-you/img/picgo/20201123161837.png)
 
-### 使用技巧
+### 4，使用技巧
 
 #### 使用插件格式化代码
 
@@ -61,11 +62,11 @@ Lua 开发者（通常是游戏开发者）推荐 `Lua Helper` 插件
 
 ![](https://cdn.jsdelivr.net/gh/Miss-you/img/picgo/企业微信截图_16097447472358.png)
 
-## IDEA
+## 二，IDEA
 
 本章节讲解如何在你自己的 Windows 上配置好 IDE。
 
-### 下载 IDEA 并配置
+### 1，下载 IDEA 并配置
 
 IDEA 是一个在 Java 语言开发者中广受好评的编辑器，但是并不是只支持 Java。
 
@@ -75,28 +76,29 @@ IDEA 是一个在 Java 语言开发者中广受好评的编辑器，但是并不
 
 安装完成后打开 File->Settings->Plugins 在其中输入 Emmylua 点击右边的 install 安装并重启 IDEA。
 
-![](../images/installplugins.png)
+![](../../images/installplugins.png)
 
 新建一个 Lua 项目
 在 File->Project Structure 里面配置好 modules 和 lib，如下图。
 
-![](../images/lua_settingmodules.png)
+![](../../images/lua_settingmodules.png)
 
-![](../images/lua_importlib.png)
+![](../../images/lua_importlib.png)
 
 至此一个包含 Lua 语法提示和调试的编辑器环境就配置好了。
 
 有关 Emmylua 的详细帮助文档请看 [这里](https://emmylua.github.io/zh_CN/)
 
-### 插件基本用法
+### 2，插件基本用法
+
 **1. 方法提示**
 
 你可以在 Setting 里面配置鼠标移动到方法上之后，自动弹出其相关说明的延迟时间
 
-![](../images/lua_quickdoc.png)
+![](../../images/lua_quickdoc.png)
 
 也可以按 Ctrl+q 手动弹出，效果如下 (= =目前我使用的版本文档中的换行显示还有问题）
-![](../images/lua_quickdocui.png)
+![](../../images/lua_quickdocui.png)
 
 **2. 快速跳转**
 
@@ -106,9 +108,10 @@ IDEA 是一个在 Java 语言开发者中广受好评的编辑器，但是并不
 
 在你输入识别的全局或者局部变量上面按点会自动出现可选方法作为提示，不用记住所有的方法。
 
-![](../images/lua_autofunc.png)
+![](../../images/lua_autofunc.png)
 
-### 进阶配置
+### 三，进阶配置
+
 由于 Emmylua 并没有自带 OpenResty 的库函数，所以我们需要自己写函数提示，这里我提供自己写的供你们 [下载](/codes/emmylua_ngx.lua) 和丰富。 请使用“右键-->另存为”方式下载，然后丢到你的 lualib 根目录中。
 
 下面是一个简单的库函数定义示例：
@@ -125,7 +128,7 @@ end
 ```
 
 方法提示不一定要使用独立的文件定义，可以直接在库里面定义，如：
-![](../images/lua_func.png)
+![](../../images/lua_func.png)
 
 至于里面的含义就要去 [这里](https://emmylua.github.io/zh_CN/) 看和理解啦。
 

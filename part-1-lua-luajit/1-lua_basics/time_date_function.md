@@ -2,26 +2,26 @@
 
 在 Lua 中，函数 `time`、`date` 和 `difftime` 提供了所有的日期和时间功能。
 
-### （推荐）基于缓存的 ngx_lua 时间接口
+## 一，（推荐）基于缓存的 ngx_lua 时间接口
 
 事实上，在 Nginx/Openresty 中，会经常使用到获取时间操作，通常一次请求最少有几十次获取时间操作，当单核心 RPS/QPS 达到 10K 以上时，获取时间操作往往会达到 200K+量级的调用，是一个非常高频的调用。所以 Nginx 会将时间和日期进行缓存，并非每次调用或每次请求获取时间和日期。
 
 **推荐** 使用 ngx_lua 模块提供的带缓存的时间接口，如 `ngx.today`, `ngx.time`, `ngx.utctime`,
 `ngx.localtime`, `ngx.now`, `ngx.http_time`，以及 `ngx.cookie_time` 等。
 
-#### ngx.today()
+### 1，ngx.today()
 
 语法：`str = ngx.today()`
 
 该接口从 Nginx 缓存的时间中获取时间，返回当前的时间和日期，其格式为`yyyy-mm-dd`（与 Lua 的日期库不同，不涉及系统调用）。
 
-#### ngx.time()
+### 2，ngx.time()
 
 语法：`secs = ngx.time()`
 
 该接口从 Nginx 缓存的时间中获取时间，返回当前时间戳的历时秒数（与 Lua 的日期库不同，不涉及系统调用）。
 
-#### ngx.now()
+### 3，ngx.now()
 
 语法：`secs = ngx.now()`
 
@@ -29,25 +29,25 @@
 
 > ngx.time() 和 ngx.now() 辨析：ngx.time() 获取到的是秒级时间，ngx.now() 获取到的是毫秒级时间。
 
-#### ngx.localtime()
+### 4，ngx.localtime()
 
 语法：`str = ngx.localtime()`
 
 返回 Nginx 缓存时间的当前时间戳（格式为 `yyy-mm-dd hh:mm:ss`）（与 Lua 的日期库不同，不涉及系统调用）。
 
-#### ngx.utctime()
+### 5，ngx.utctime()
 
 语法：`str = ngx.utctime()`
 
 返回 Nginx 缓存时间的当前 UTC 时间戳（格式为 `yyyy-mm-dd hh:mm:ss`）（与 Lua 的日期库不同，不涉及系统调用）。
 
-#### ngx.update_time()
+### 6，ngx.update_time()
 
 语法：`ngx.update_time()`
 
 强制更新 Nginx 当前时间缓存。这个调用涉及到一个系统调用，因此有一些开销，所以不要滥用。
 
-#### 获取时间示例代码
+### 7，获取时间示例代码
 
 示例代码：
 
@@ -79,13 +79,13 @@ ngx.log(ngx.INFO, ngx.utctime())
 2020/12/31 15:37:27 [error] 15851#0: *2153324: 2020-12-31 07:37:27
 ```
 
-### （不推荐） Lua 自带的日期和时间函数
+## 二，（不推荐） Lua 自带的日期和时间函数
 
 在 OpenResty 的世界里，**不推荐** 使用这里的标准时间函数，因为这些函数通常会引发不止一个昂贵的系统调用，同时无法为 LuaJIT JIT 编译，对性能造成较大影响。
 
 所以下面的部分函数，简单了解一下即可。
 
-#### os.time ([table])
+### 1，os.time ([table])
 
 - 如果不使用参数 table 调用 `time` 函数，它会返回 **当前** 的时间和日期（它表示从某一时刻到现在的秒数）。
 
@@ -113,7 +113,7 @@ a = { year = 1970, month = 1, day = 1, hour = 8, min = 1 }
 print(os.time(a))   -->output  60
 ```
 
-#### os.difftime (t2, t1)
+### 2，os.difftime (t2, t1)
 
 返回 t1 到 t2 的时间差，单位为秒。
 
@@ -128,7 +128,7 @@ local t2 = os.time(day2)
 print(os.difftime(t2, t1))   -->output  86400
 ```
 
-#### os.date ([format [, time]])
+### 3，os.date ([format [, time]])
 
 把一个表示日期和时间的数值，转换成更高级的表现形式。
 

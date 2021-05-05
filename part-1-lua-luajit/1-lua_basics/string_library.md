@@ -8,7 +8,7 @@ Lua 字符串总是由字节构成的。Lua 核心并不尝试理解具体的字
 
 这在计算字符串位置的时候再也不用调整了，对于非专业的开发者来说可能也是一个好事情，string.sub(str, 3, 7) 直接表示从第三个字符开始到第七个字符（含）为止的子串。
 
-#### string.byte(s [, i [, j ]])
+## 一，string.byte(s [, i [, j ]])
 
 返回字符 s[i]、s[i + 1]、s[i + 2]、······、s[j] 所对应的 ASCII 码。`i` 的默认值为 1，即第一个字节,`j` 的默认值为 i 。
 
@@ -28,7 +28,7 @@ print(string.byte("abc"))    -- 缺少第二个和第三个参数，此时这两
 由于 `string.byte` 只返回整数，而并不像 `string.sub` 等函数那样（尝试）创建新的 Lua 字符串，
 因此使用 `string.byte` 来进行字符串相关的扫描和分析是最为高效的，尤其是在被 LuaJIT 2 所 JIT 编译之后。
 
-#### string.char (...)
+## 二，string.char (...)
 
 接收 0 个或多个整数（整数范围：0~255），返回这些整数所对应的 ASCII 码字符组成的字符串。当参数为空时，默认是一个 0。
 
@@ -48,7 +48,7 @@ AB
 
 **此函数特别适合从具体的字节构造出二进制字符串**。这通常比使用 `table.concat` 函数和 `..` 连接运算符更加高效。
 
-#### string.upper(s)
+## 三，string.upper(s)
 
 接收一个字符串 s，返回一个把所有小写字母 **变成了大写** 字母的字符串。
 
@@ -58,7 +58,7 @@ AB
 print(string.upper("Hello Lua"))  -->output  HELLO LUA
 ```
 
-#### string.lower(s)
+## 四，string.lower(s)
 
 接收一个字符串 s，返回一个把所有大写字母 **变成了小写** 字母的字符串。
 
@@ -68,7 +68,7 @@ print(string.upper("Hello Lua"))  -->output  HELLO LUA
 print(string.lower("Hello Lua"))  -->output   hello lua
 ```
 
-#### string.len(s)
+## 五，string.len(s)
 
 接收一个字符串，返回它的长度。
 
@@ -82,9 +82,10 @@ print(string.len("hello lua")) -->output  9
 
 由于 Lua 字符串的长度是专门存放的，并不需要像 C 字符串那样即时计算，因此获取字符串长度的操作总是 `O(1)` 的时间复杂度。
 
-#### string.find(s, p [, init [, plain]])
+## 六，string.find(s, p [, init [, plain]])
 
 在 s 字符串中第一次匹配 p 字符串。
+
 - 若匹配成功，则返回 p 字符串在 s 字符串中出现的开始位置和结束位置；
 - 若匹配失败，则返回 nil。
 
@@ -117,16 +118,17 @@ nil
 
 这里有个的例子，大家可以参考 [https://groups.google.com/forum/m/#!topic/openresty-en/rwS88FGRsUI](https://groups.google.com/forum/m/#!topic/openresty-en/rwS88FGRsUI)。
 
-#### string.format(formatstring, ...)
+## 七，string.format(formatstring, ...)
 
 按照格式化参数 formatstring，返回后面 `...` 内容的格式化版本。编写格式化字符串的规则与标准 C 语言中 printf 函数的规则基本相同：
+
 - 它由常规文本和指示组成，这些指示控制了每个参数应放到格式化结果的什么位置，及如何放入它们。
 - 一个指示由字符 `%` 加上一个字母组成，这些字母指定了如何格式化参数，例如:
-    - `d` 用于十进制数、
-    - `x` 用于十六进制数、
-    - `o` 用于八进制数、
-    - `f` 用于浮点数、
-    - `s` 用于字符串等。
+  - `d` 用于十进制数、
+  - `x` 用于十六进制数、
+  - `o` 用于八进制数、
+  - `f` 用于浮点数、
+  - `s` 用于字符串等。
 - 在字符 `%` 和字母之间可以再指定一些其他选项，用于控制格式的细节。
 
 > 示例代码
@@ -144,9 +146,10 @@ print(string.format("%s %02d/%02d/%d", "today is:", d, m, y))
 today is: 29/07/2015
 ```
 
-#### string.match(s, p [, init])
+## 八，string.match(s, p [, init])
 
 在字符串 s 中匹配（模式）字符串 p。
+
 - 若匹配成功，则返回目标字符串中与模式匹配的子串；
 - 否则返回 nil。
 
@@ -170,7 +173,7 @@ nil
 
 `string.match` 目前并不能被 JIT 编译，应 **尽量** 使用 ngx_lua 模块提供的 `ngx.re.match` 等接口。
 
-#### string.gmatch(s, p)
+## 九，string.gmatch(s, p)
 
 返回一个迭代器函数，通过这个迭代器函数可以遍历到在字符串 s 中出现模式串 p 的所有地方。
 
@@ -205,7 +208,7 @@ from    world
 
 此函数目前并不能被 LuaJIT 所 JIT 编译，而只能被解释执行。应 **尽量** 使用 ngx_lua 模块提供的 `ngx.re.gmatch` 等接口。
 
-#### string.rep(s, n)
+## 十，string.rep(s, n)
 
 返回字符串 s 的 n 次拷贝。
 
@@ -217,9 +220,10 @@ print(string.rep("abc", 3)) --拷贝3次"abc"
 -->output  abcabcabc
 ```
 
-#### string.sub(s, i [, j])
+## 十一，string.sub(s, i [, j])
 
 返回字符串 s 中，索引 i 到索引 j 之间的子字符串。
+
 - 当 j 缺省时，默认为 -1，也就是字符串 s 的最后位置。
 - i 可以为负数。当索引 i 在字符串 s 的位置在索引 j 的后面时，将返回一个空字符串。
 
@@ -240,9 +244,10 @@ Lua
 
 如果你只是想对字符串中的 **单个字节** 进行检查，使用 `string.char` 函数通常会更为高效。
 
-#### string.gsub(s, p, r [, n])
+## 十二，string.gsub(s, p, r [, n])
 
 将目标字符串 s 中所有的子串 p 替换成字符串 r。
+
 - 可选参数 n，表示限制替换次数。
 - 返回值有两个，第一个是被替换后的字符串，第二个是替换了多少次。
 
@@ -259,7 +264,7 @@ hello hello Lua     2
 
 此函数不能为 LuaJIT 所 JIT 编译，而只能被解释执行。一般我们推荐使用 ngx_lua 模块提供的 `ngx.re.gsub` 函数。
 
-#### string.reverse (s)
+## 十三，string.reverse (s)
 
 接收一个字符串 s，返回这个字符串的反转。
 
@@ -268,4 +273,3 @@ hello hello Lua     2
 ```lua
 print(string.reverse("Hello Lua"))  --> output: auL olleH
 ```
-

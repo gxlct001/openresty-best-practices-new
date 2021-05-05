@@ -2,15 +2,15 @@
 
 table 库是由一些辅助函数构成的，这些函数将 table 作为数组来操作。
 
-#### 下标从 1 开始
+## 一，下标从 1 开始
 
-在 *Lua* 中，数组下标从 1 开始计数。
+在 _Lua_ 中，数组下标从 1 开始计数。
 
 官方解释：Lua lists have a base index of 1 because it was thought to be most friendly for non-programmers, as it makes indices correspond to ordinal element positions.
 
 确实，对于我们数数来说，总是从 1 开始数的，而从 0 开始对于描述偏移量这样的东西有利。而 Lua 最初设计是一种类似 XML 的数据描述语言，所以索引（index）反应的是数据在里面的位置，而不是偏移量。
 
-在初始化一个数组的时候，若不显式地用 **键值对** 方式赋值，则会默认用数字作为下标，从 1 开始。由于在 *Lua* 内部实际采用哈希表和数组分别保存键值对、普通值，所以不推荐混合使用这两种赋值方式。
+在初始化一个数组的时候，若不显式地用 **键值对** 方式赋值，则会默认用数字作为下标，从 1 开始。由于在 _Lua_ 内部实际采用哈希表和数组分别保存键值对、普通值，所以不推荐混合使用这两种赋值方式。
 
 ```lua
 local color={first="red", "blue", third="green", "yellow"}
@@ -22,96 +22,99 @@ print(color[3])                       --> output: nil
 ```
 
 从其他语言过来的开发者会觉得比较坑的一点是，当我们把 table 当作栈或者队列使用的时候，容易犯错：
+
 - 追加到 table 的末尾用的是 `s[#s+1] = something`，而不是 `s[#s] = something`，而且如果这个 something 是一个 nil 的话，会导致这一次压栈（或者入队列）没有存入任何东西，`#s` 的值没有变。 示例如下：
-    ```lua
-    -- 情况 1： 使用 `#str+1`, 要添加的值为“真值”或 false
-    str = {'a', 'b', 'c'}
-    str[#str+1] = 'd'
 
-    print('str_len:' .. #str)  -- 打印出 str 的元素个数
+  ```lua
+  -- 情况 1： 使用 `#str+1`, 要添加的值为“真值”或 false
+  str = {'a', 'b', 'c'}
+  str[#str+1] = 'd'
 
-    for i,v in ipairs(str) do
-        print(i,v)             -- 打印 str 的元素
-    end
+  print('str_len:' .. #str)  -- 打印出 str 的元素个数
 
-    -- output: （正确的结果）
-    str_len:4
-    1   a
-    2   b
-    3   c
-    4   d
-    -- 注：false 也是可以正常添加的。
+  for i,v in ipairs(str) do
+      print(i,v)             -- 打印 str 的元素
+  end
 
-    -- 情况 2： 使用 `#str+1`, 要添加的值为 nil
-    str = {'a', 'b', 'c'}
-    str[#str+1] = nil
+  -- output: （正确的结果）
+  str_len:4
+  1   a
+  2   b
+  3   c
+  4   d
+  -- 注：false 也是可以正常添加的。
 
-    print('str_len:' .. #str)   -- 打印出 str 的元素个数
+  -- 情况 2： 使用 `#str+1`, 要添加的值为 nil
+  str = {'a', 'b', 'c'}
+  str[#str+1] = nil
 
-    for i,v in ipairs(str) do
-        print(i,v)              -- 打印 str 的元素
-    end
+  print('str_len:' .. #str)   -- 打印出 str 的元素个数
 
-    -- output: （正确的结果）
-    str_len:3
-    1   a
-    2   b
-    3   c
-    -- str 的元素个数没有变化
+  for i,v in ipairs(str) do
+      print(i,v)              -- 打印 str 的元素
+  end
 
-    -- 情况 3： 使用 `#str`, 要添加的值为“真值”或 false
-    str = {'a', 'b', 'c'}
-    str[#str] = 'd'
+  -- output: （正确的结果）
+  str_len:3
+  1   a
+  2   b
+  3   c
+  -- str 的元素个数没有变化
 
-    print('str_len:' .. #str)   -- 打印出 str 的元素个数
+  -- 情况 3： 使用 `#str`, 要添加的值为“真值”或 false
+  str = {'a', 'b', 'c'}
+  str[#str] = 'd'
 
-    for i,v in ipairs(str) do
-        print(i,v)              -- 打印 str 的元素
-    end
+  print('str_len:' .. #str)   -- 打印出 str 的元素个数
 
-    -- output: （不期望的结果）
-    str_len:3
-    1   a
-    2   b
-    3   d
-    -- str 的元素个数没有变化，但是最后一个元素被覆盖了，并不是期望的添加一个新元素
+  for i,v in ipairs(str) do
+      print(i,v)              -- 打印 str 的元素
+  end
 
-    -- 情况 4： 使用 `#str`, 要添加的值为 nil
-    str = {'a', 'b', 'c'}
-    str[#str] = nil
+  -- output: （不期望的结果）
+  str_len:3
+  1   a
+  2   b
+  3   d
+  -- str 的元素个数没有变化，但是最后一个元素被覆盖了，并不是期望的添加一个新元素
 
-    print('str_len:' .. #str)   -- 打印出 str 的元素个数
+  -- 情况 4： 使用 `#str`, 要添加的值为 nil
+  str = {'a', 'b', 'c'}
+  str[#str] = nil
 
-    for i,v in ipairs(str) do
-        print(i,v)              -- 打印 str 的元素
-    end
+  print('str_len:' .. #str)   -- 打印出 str 的元素个数
 
-    -- output: （不期望的结果）
-    str_len:2
-    1   a
-    2   b
-    -- str 的元素少了一个，不光没有添加反而删除了一个
-    ```
+  for i,v in ipairs(str) do
+      print(i,v)              -- 打印 str 的元素
+  end
+
+  -- output: （不期望的结果）
+  str_len:2
+  1   a
+  2   b
+  -- str 的元素少了一个，不光没有添加反而删除了一个
+  ```
 
 - 如果 `s = { 1, 2, 3, 4, 5, 6 }`，你令 `s[4] = nil`，`#s` 会令你“匪夷所思”地变成 3。 示例如下：
-    ```lua
-    s = { 1, 2, 3, 4, 5, 6 }
-    s[4] = nil
 
-    print('s_len:' .. #s)   -- 打印出 s 的元素个数
+  ```lua
+  s = { 1, 2, 3, 4, 5, 6 }
+  s[4] = nil
 
-    for i,v in ipairs(s) do
-        print(i,v)          -- 打印 s 的元素
-    end
+  print('s_len:' .. #s)   -- 打印出 s 的元素个数
 
-    -- output:
-    s_len:3
-    1   1
-    2   2
-    3   3
-    ```
+  for i,v in ipairs(s) do
+      print(i,v)          -- 打印 s 的元素
+  end
 
-#### table.getn 获取长度
+  -- output:
+  s_len:3
+  1   1
+  2   2
+  3   3
+  ```
+
+## 二，table.getn 获取长度
 
 取长度操作符写作一元操作 `#`。字符串的长度是它的字节数（就是以一个字符一个字节计算的字符串长度）。
 
@@ -160,7 +163,7 @@ Test6 1
 
 不要在 Lua 的 table 中使用 nil 值，**如果一个元素要删除，直接 remove，不要用 nil 去代替**。
 
-#### table.concat (table [, sep [, i [, j ] ] ])
+## 三，table.concat (table [, sep [, i [, j ] ] ])
 
 对于元素是 string 或者 number 类型的表 table，返回 `table[i]..sep..table[i+1] ··· sep..table[j]` 连接成的字符串。填充字符串 sep 默认为空白字符串。起始索引位置 i 默认为 1，结束索引位置 j 默认是 table 的长度。如果 i 大于 j，返回一个空字符串。
 
@@ -211,13 +214,13 @@ print(table.concat(a, " ", 2, 4))   -- output: 3 5 hello
     end
 ```
 
-#### table.insert (table, [pos ,] value)
+## 四，table.insert (table, [pos ,] value)
 
 在（数组型）表 table 的 pos 索引位置插入 value，其它元素向后移动到空的地方。pos 的默认值是表的长度加一，即默认是插在表的最后。
 
 > 示例代码
 
-```
+```lua
 local a = {1, 8}          --a[1] = 1,a[2] = 8
 
 table.insert(a, 1, 3)     --在表索引为 1 处插入 3
@@ -231,7 +234,7 @@ print(a[1], a[2], a[3], a[4])
 3	1	8	10
 ```
 
-#### table.maxn (table)
+## 五，table.maxn (table)
 
 返回（数组型）表 table 的最大索引编号；如果此表没有正的索引编号，返回 0。
 
@@ -255,7 +258,7 @@ print(table.maxn(a))
 
 此函数的行为不同于 `#` 运算符，因为 `#` 可以返回数组中任意一个 nil 空洞或最后一个 nil 之前的元素索引。当然，该函数的开销相比 `#` 运算符也会更大一些。
 
-#### table.remove (table [, pos])
+## 六，table.remove (table [, pos])
 
 在表 table 中删除索引为 pos（pos 只能是 number 型）的元素，并返回这个被删除的元素，它后面所有元素的索引值都会减一。pos 的默认值是表的长度，即默认是删除表的最后一个元素。
 
@@ -277,7 +280,7 @@ print(a[1], a[2], a[3], a[4])
 2	3	nil	nil
 ```
 
-#### table.sort (table [, comp])
+## 七，table.sort (table [, comp])
 
 按照给定的比较函数 comp 给表 table 排序，也就是从 table[1] 到 table[n]，这里 n 表示 table 的长度。
 比较函数有两个参数，如果希望第一个参数排在第二个的前面，就应该返回 true，否则返回 false。
@@ -301,6 +304,7 @@ print(a[1], a[2], a[3], a[4], a[5])
 25	7	4	3	1
 ```
 
-#### table 其他非常有用的函数
+## 八，table 其他非常有用的函数
 
-LuaJIT 2.1 新增加的 `table.new` 和 `table.clear` 函数是非常有用的。前者主要用来预分配 Lua table 空间，后者主要用来高效的释放 table 空间，并且它们都是可以被 JIT 编译的。具体可以参考一下 OpenResty 捆绑的 lua-resty-* 库，里面有些实例可以作为参考。
+LuaJIT 2.1 新增加的 `table.new` 和 `table.clear` 函数是非常有用的。前者主要用来预分配 Lua table 空间，后者主要用来高效的释放 table 空间，并且它们都是可以被 JIT 编译的。
+具体可以参考一下 OpenResty 捆绑的 `lua-resty-*` 库，里面有些实例可以作为参考。

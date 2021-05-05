@@ -10,11 +10,11 @@
 
    * 使用 `tasklist /fi "imagename eq nginx.exe"` 命令查看 nginx 进程，其中一个是 master 进程，另一个是 worker 进程，如下图：
 
-  ![nginx进程](../images/nginx_process.png)
+  ![nginx进程](../../images/nginx_process.png)
 
    * 在浏览器的地址栏输入 localhost，加载 nginx 的欢迎页面。成功加载说明 nginx 正在运行。如下图：
 
-  ![nginx的欢迎页面](../images/nginx_web_welcome.png)
+  ![nginx的欢迎页面](../../images/nginx_web_welcome.png)
 
 另外当 nginx 成功启动后，master 进程的 pid 存放在 `logs\nginx.pid` 文件中。
 

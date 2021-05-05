@@ -10,7 +10,7 @@ OpenResty 致力于将你的服务器端应用完全运行于 Nginx 服务器中
 
 因为 OpenResty 软件包的维护者也是其中打包的许多 Nginx 模块的作者，所以 OpenResty 可以确保所包含的所有组件可以可靠地协同工作。
 
-## 【访谈实录】(节选)
+## 【访谈实录】(摘自：[OpenResty 作者章亦春访谈实录](http://www.oschina.net/question/28_60461))
 
 ### 1. 为什么会想到要做 OpenResty 这个项目？
 
@@ -20,10 +20,11 @@ OpenResty 最早是雅虎中国的一个公司项目，起步于 2007 年 10 月
 
 与这种概念相对应的是纯 AJAX 的 web 应用，即 web 应用几乎都使用客户端 JavaScript 来编写，然后完全由 web service 让 web 应用“活”起来。用户把 .html, .js, .css, .jpg 等静态文件下载到 web browser 中，然后 js 开始运行，跨域请求雅虎提供的经过站长定制过的 web service，然后应用就可以运行起来。
 
-不过随着后来的发展，公司外的用户毕竟还是少数，于是应用的重点是为公司内部的其他团队提供 web service，比如雅虎中国的全能搜索产品，及其外围的一些产品。从那以后，开发的重点便放在了性能优化上面。[章亦春](https://github.com/agentzh) 在加入淘宝数据部门的量子团队之后，决定对 OpenResty 进行重新设计和彻底重写，并把应用重点放在支持像量子统计这样的 web 产品上面，所以量子统计 3.0 开始也几乎完全是 web service 驱动的纯 AJAX 应用。
+不过随着后来的发展，公司外的用户毕竟还是少数，于是应用的重点是为公司内部的其他团队提供 web service，比如雅虎中国的全能搜索产品，及其外围的一些产品。从那以后，开发的重点便放在了性能优化上面。我（[章亦春](https://github.com/agentzh)）在加入淘宝数据部门的量子团队之后，决定对 OpenResty 进行重新设计和彻底重写，并把应用重点放在支持像量子统计这样的 web 产品上面，所以量子统计 3.0 开始也几乎完全是 web service 驱动的纯 AJAX 应用。
 
 ### 2. 这是第二代的 OpenResty 吗？
-是的，这是第二代的 OpenResty，一般称之为 ngx_openresty，以便和第一代基于 Perl 和 Haskell 实现的 OpenResty 加以区别。章亦春和他的同事 [王晓哲](https://github.com/chaoslawful) 一起设计了第二代的 OpenResty。在王晓哲的提议下，选择基于 nginx 和 lua 进行开发。
+
+是的，这是第二代的 OpenResty，一般称之为 ngx_openresty，以便和第一代基于 Perl 和 Haskell 实现的 OpenResty 加以区别。我和同事 [王晓哲](https://github.com/chaoslawful) 一起设计了第二代的 OpenResty。在王晓哲的提议下，选择基于 nginx 和 lua 进行开发。
 
 ### 3. 为什么要取 OpenResty 这个名字呢？
 
@@ -72,8 +73,6 @@ ngx_openresty 从一开始就是公司实际的业务需求的产物。在过去
 
 对于创建开源项目的新手，我建议一定要及时响应用户以及其他开发者的反馈，千万不要止步于开放源代码。同时多参与和关注其他的开源项目，观察那些比较成功的开源项目具体是如何运作的。
 
-摘自：[OpenResty 作者章亦春访谈实录](http://www.oschina.net/question/28_60461)
-
 ## 【站点资源】
 
 **项目地址：**
@@ -95,8 +94,9 @@ ngx_openresty 从一开始就是公司实际的业务需求的产物。在过去
 
 - [微博](https://www.weibo.com/agentzh)
 - 公众号：
-  - [OpenResty 社区](openrestysoft)
-  - [OpenResty 软件](openrestysoft)
+  - OpenResty 社区
+  - OpenResty 软件
+  - OR 北京技术沙龙
 - [Bilibili](https://space.bilibili.com/457424101)
 - [LinkedIn](https://www.linkedin.com/company/openresty)
 - [YouTube](https://www.youtube.com/channel/UCXVmwF-UCScv2ftsGoMqxhw)

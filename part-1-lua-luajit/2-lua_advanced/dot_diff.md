@@ -10,7 +10,7 @@ print("case 2:", str.sub(str, 1, 2))
 
 > 执行结果:
 
-```
+```bash
 case 1: ab
 case 2: ab
 ```
@@ -25,7 +25,7 @@ case 2: ab
 obj = { x = 20 }
 
 function obj:fun1()
-	print(self.x)
+  print(self.x)
 end
 ```
 
@@ -35,22 +35,19 @@ end
 obj = { x = 20 }
 
 function obj.fun1(self)
-	print(self.x)
+  print(self.x)
 end
 ```
 
 参见 [官方文档](http://www.lua.org/manual/5.1/manual.html#2.5.9) 中的以下片段:
 
-```
-
-The colon syntax is used for defining methods, that is, functions that
-have an implicit extra parameter self. Thus, the statement
-
-     function t.a.b.c:f (params) body end
-
-is syntactic sugar for
-
-     t.a.b.c.f = function (self, params) body end
-```
+>The colon syntax is used for defining methods, that is, functions that
+>have an implicit extra parameter self. Thus, the statement
+>
+>     function t.a.b.c:f (params) body end
+>
+>is syntactic sugar for
+>
+>     t.a.b.c.f = function (self, params) body end
 
 冒号的操作，只有当变量是类对象时才需要。有关如何使用 Lua 构造类，大家可参考相关章节。
